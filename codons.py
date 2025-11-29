@@ -1,15 +1,17 @@
-def create_codon_dict(file_path):
-    file_path = "data/codons.txt" 
-    f = open(file_path, "r")
-    lines = f.readlines()
-    f.close
-    dict = {} 
-    for l in lines:
-        dict += l.strip()
-        lines.split()
-        cells = l.find_all("td")
-        key = cells[0].text
-        value = cells[3].text
-        dict[] = value
-    return dict
+  with open(file_path, "r") as file:
+        lines = file.readlines()
 
+    codon_to_amino_acid = {}
+    for line in lines:
+        stripped_line = line.strip()
+        if not stripped_line:
+            continue
+        
+        cells = stripped_line.split('\t')
+
+        if len(cells) >= 3:
+            codon = cells[0]
+            amino_acid_abbr = cells[2]
+            codon_to_amino_acid[codon] = amino_acid_abbr
+            
+    return codon_to_amino_acid
