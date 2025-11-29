@@ -1,17 +1,5 @@
-  with open(file_path, "r") as file:
-        lines = file.readlines()
-
-    codon_to_amino_acid = {}
-    for line in lines:
-        stripped_line = line.strip()
-        if not stripped_line:
-            continue
-        
-        cells = stripped_line.split('\t')
-
-        if len(cells) >= 3:
-            codon = cells[0]
-            amino_acid_abbr = cells[2]
-            codon_to_amino_acid[codon] = amino_acid_abbr
-            
-    return codon_to_amino_acid
+def create_codon_dict(file_path):
+    codon2amino_acid_dict = {}
+    with open(file_path) as codons_file:
+        codon2amino_acid_dict = {row.strip().split('\t')[0]: row.strip().split('\t')[2] for row in codons_file.readlines()}
+    return codon2amino_acid_dict
